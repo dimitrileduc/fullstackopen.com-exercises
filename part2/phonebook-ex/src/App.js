@@ -1,7 +1,8 @@
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import Form from "./components/Form";
 import SearchFilter from "./components/SearchFilter";
 import PhoneBook from "./components/PhoneBook";
+import axios from "axios";
 
 const App = () => {
     const [persons, setPersons] = useState([
@@ -15,6 +16,14 @@ const App = () => {
     const [showAll, setShowAll] = useState(true);
     const [valueSearchInput, setValueSearchInput] = useState("");
     let objectExist = false;
+
+    useEffect(() => {
+        console.log("effect");
+        axios.get("http://localhost:3001/persons").then((response) => {
+            console.log("promise fulfilled");
+            setPersons(response.data);
+        });
+    }, []);
 
     const addPersons = (event) => {
         event.preventDefault();
