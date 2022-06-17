@@ -1,4 +1,7 @@
 import {useState} from "react";
+import Form from "./components/Form";
+import SearchFilter from "./components/SearchFilter";
+import PhoneBook from "./components/PhoneBook";
 
 const App = () => {
     const [persons, setPersons] = useState([
@@ -72,42 +75,23 @@ const App = () => {
     return (
         <div>
             <h2>Phonebook</h2>
-            <form onSubmit={addPersons}>
-                <div>
-                    name: <input value={newName} onChange={handleNameChange} />
-                </div>
-                <label htmlFor="phone">Enter a phone number:</label>
-                <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    placeholder="123-1234567"
-                    pattern="[0-9]{3}-[0-9]{7}"
-                    required
-                    onChange={handleNumberChange}></input>
-                <small>Format: 123-4567898</small>
-                <div>
-                    <button type="submit">add</button>
-                </div>
-                <div>debug: {newName}</div>
-            </form>
+            <Form
+                addPersons={addPersons}
+                handleNameChange={handleNameChange}
+                handleNumberChange={handleNumberChange}
+                newName={newName}
+            />
             <h2>Numbers</h2>
-            <label htmlFor="search">Search by name:</label>
-            <input
-                id="search"
-                onChange={handleChangeSearch}
-                value={valueSearchInput}></input>
-            <ul>
-                {personsToShow.map((person) => (
-                    <li key={person.id}>
-                        {" "}
-                        {person.name} number : {person.number}
-                    </li>
-                ))}
-            </ul>
-            ...
+            <SearchFilter
+                handleChangeSearch={handleChangeSearch}
+                valueSearchInput={valueSearchInput}
+            />
+
+            <PhoneBook personsToShow={personsToShow} />
         </div>
     );
 };
 
 export default App;
+
+// handleChangeSearch, valueSearchInput
